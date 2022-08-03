@@ -44,12 +44,12 @@ routers.post('/down', docxToPDF.single('file') ,(req, res)=>{
 
 
     const file =  fs.readFileSync(req.file.path)
-    // let outputFilePath = Date.now() + "output.pdf"
+    let outputFilePath = Date.now() + "output.pdf"
 
 
     res.status(200).json({
         message : 'ok ha g',
-        outputFilePath : 'outputFilePath',
+        outputFilePath : outputFilePath,
         file : file
     })
 
