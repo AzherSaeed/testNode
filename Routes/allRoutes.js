@@ -48,7 +48,7 @@ routers.post('/down', docxToPDF.single('file') ,(req, res)=>{
 
 
     libre.convert(file , '.pdf' , undefined , (err , done) => {
-        if(err){
+        if(done){
 
             res.status(200).json({
                 message : 'err',
