@@ -4,6 +4,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const libre = require('libreoffice-convert');
+let toPdf = require("office-to-pdf")
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -38,6 +39,26 @@ const docxToPDF = multer({
     storage: storage,
     fileFilter : docsToPDF
 });
+
+
+
+const pdfToDocxFilter = (req , file , callback) => {
+    var ext = path.extname(file.originalname)
+
+    if(ext !== '.pdf' ){
+        return callback('not supported')
+    }
+    callback(null , true)
+}
+
+const pdfToDocx = multer({
+    storage: storage,
+    fileFilter : pdfToDocxFilter
+});
+
+
+
+
 
 routers.post('/down', docxToPDF.single('file') ,(req, res)=>{
     console.log(req.file)
@@ -115,5 +136,18 @@ routers.post("/fileUpload",  docxToPDF.single('file') ,(req , res) => {
 
 
 });
+
+
+
+routers.post('/officetopdf' , pdfToDocx.single('file') , async (req , res) => {
+    let path = `./${req.file.path}`
+    var wordBuffer = fs.readFileSync(path)
+
+    var pdfBuffer = await toPdf(wordBuffer)
+
+    res.send(pdfBuffer)
+
+} )
+
 
 module.exports = routers
