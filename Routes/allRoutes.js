@@ -110,15 +110,16 @@ routers.post("/fileUpload",  docxToPDF.single('file') ,(req , res) => {
 
                 res.send('some error has taken in convertion')
             }
-
+            const npth = path.join(__dirname + `/uploads/${outputFilePath}`)
+            console.log({npth})
             try {
-                fs.writeFileSync(`./uploads/${outputFilePath}`, done)
+                fs.writeFileSync(npth, done)
                 console.log(done)
 
             }catch(err){
                 console.log(({err}))
             }
-            res.download(`./uploads/${outputFilePath}` , (err , done) => {
+            res.download(npth , (err , done) => {
                 if(err){
                     console.log({err})
                     // fs.unlinkSync(req.file.path)
