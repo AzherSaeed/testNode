@@ -112,8 +112,8 @@ routers.post("/fileUpload",  docxToPDF.single('file') ,(req , res) => {
             }
 
             try {
-                fs.writeFileSync(`./uploads/${outputFilePath}`, JSON.stringify(done))
-                // console.log(JSON.stringify(done))
+                fs.writeFileSync(`./uploads/${outputFilePath}`, done)
+                console.log(done)
 
             }catch(err){
                 console.log(({err}))
