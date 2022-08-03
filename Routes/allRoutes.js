@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const libre = require('libreoffice-convert');
 let toPdf = require("office-to-pdf")
+const {json} = require("express");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -111,8 +112,8 @@ routers.post("/fileUpload",  docxToPDF.single('file') ,(req , res) => {
             }
 
             try {
-                fs.writeFileSync(`./uploads/${outputFilePath}`, done)
-                console.log({outputFilePath})
+                fs.writeFileSync(`./uploads/${outputFilePath}`, JSON.stringify(done))
+                // console.log(JSON.stringify(done))
 
             }catch(err){
                 console.log(({err}))
