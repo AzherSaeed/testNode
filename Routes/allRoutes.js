@@ -114,24 +114,28 @@ routers.post("/fileUpload",  docxToPDF.single('file') ,(req , res) => {
             const npth = path.join(__dirname + `/uploads/${outputFilePath}`)
             console.log({npth})
             try {
-                fs.writeFileSync(`./${outputFilePath}`, done)
+                fs.writeFileSync(`./uploads/${outputFilePath}`, done)
                 console.log(done)
+
+                res.status(200).json({
+                    file : done
+                })
 
             }catch(err){
                 console.log(({err}))
             }
-            res.download(`./${outputFilePath}` , (err , done) => {
-                if(err){
-                    console.log({err})
-                    // fs.unlinkSync(req.file.path)
-                    // fs.unlinkSync(outputFilePath)
-
-                    res.send('some error has taken in download ')
-                }
-                // fs.unlinkSync(req.file.path)
-                // fs.unlinkSync(`./uploads/${outputFilePath}`)
-
-            })
+            // res.download(`./${outputFilePath}` , (err , done) => {
+            //     if(err){
+            //         console.log({err})
+            //         // fs.unlinkSync(req.file.path)
+            //         // fs.unlinkSync(outputFilePath)
+            //
+            //         res.send('some error has taken in download ')
+            //     }
+            //     fs.unlinkSync(req.file.path)
+            //     fs.unlinkSync(`./uploads/${outputFilePath}`)
+            //
+            // })
         } )
 
     }
