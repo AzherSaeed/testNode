@@ -56,10 +56,9 @@ routers.post('/down', docxToPDF.single('file') ,(req, res)=>{
         }
 
         try {
-            fs.writeFileSync(`./uploads/${outputFilePath}`, done)
+            // fs.writeFileSync(`./uploads/${outputFilePath}`, done)
             res.status(200).json({
                 message : outputFilePath,
-
             })
 
         }catch(err){
