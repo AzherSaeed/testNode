@@ -47,6 +47,20 @@ routers.post('/down', docxToPDF.single('file') ,(req, res)=>{
     let outputFilePath = Date.now() + "output.pdf"
 
 
+    libre.convert(file , '.pdf' , undefined , (err , done) => {
+        const file =  fs.readFileSync(req.file.path)
+        let outputFilePath = Date.now() + "output.pdf"
+
+
+        res.status(200).json({
+            message : 'ok ha g',
+            outputFilePath : outputFilePath,
+            file : file
+        })
+
+
+    })
+
     res.status(200).json({
         message : 'ok ha g',
         outputFilePath : outputFilePath,
