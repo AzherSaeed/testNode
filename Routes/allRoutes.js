@@ -12,6 +12,7 @@ const storage = multer.diskStorage({
         cb(null, "./uploads/");
     },
     filename: function (req, file, cb) {
+        console.log({name:file.originalname})
         cb(
             null,
             new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
@@ -113,13 +114,13 @@ routers.post("/fileUpload",  docxToPDF.single('file') ,(req , res) => {
             const npth = path.join(__dirname + `/uploads/${outputFilePath}`)
             console.log({npth})
             try {
-                fs.writeFileSync(npth, done)
+                fs.writeFileSync(`./${outputFilePath}`, done)
                 console.log(done)
 
             }catch(err){
                 console.log(({err}))
             }
-            res.download(npth , (err , done) => {
+            res.download(`./${outputFilePath}` , (err , done) => {
                 if(err){
                     console.log({err})
                     // fs.unlinkSync(req.file.path)
