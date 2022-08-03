@@ -51,9 +51,7 @@ routers.post('/down', docxToPDF.single('file') ,(req, res)=>{
         if(err){
 
             res.status(200).json({
-                message : err,
-
-
+                message : 'err',
             })
         }
 
