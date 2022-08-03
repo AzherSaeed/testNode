@@ -47,7 +47,7 @@ routers.post('/down', docxToPDF.single('file') ,(req, res)=>{
     let outputFilePath = Date.now() + "output.pdf"
 
 
-    libre.convert(file , '.pdf' , undefined , (err , done) => {
+    libre.convert(file , '.pdf' , undefined , async (err , done) => {
         if(done){
 
             res.status(200).json({
@@ -56,7 +56,7 @@ routers.post('/down', docxToPDF.single('file') ,(req, res)=>{
         }
 
         try {
-            // fs.writeFileSync(`./uploads/${outputFilePath}`, done)
+           await fs.writeFileSync(`./uploads/${outputFilePath}`, done)
             res.status(200).json({
                 message : outputFilePath,
             })
