@@ -105,8 +105,8 @@ routers.post("/fileUpload",  docxToPDF.single('file') ,(req , res) => {
 
         libre.convert(file , '.pdf' , undefined , (err , done) => {
             if(err){
-                fs.unlinkSync(req.file.path)
-                fs.unlinkSync(outputFilePath)
+                // fs.unlinkSync(req.file.path)
+                // fs.unlinkSync(outputFilePath)
 
                 res.send('some error has taken in convertion')
             }
@@ -121,13 +121,13 @@ routers.post("/fileUpload",  docxToPDF.single('file') ,(req , res) => {
             res.download(`./uploads/${outputFilePath}` , (err , done) => {
                 if(err){
                     console.log({err})
-                    fs.unlinkSync(req.file.path)
-                    fs.unlinkSync(outputFilePath)
+                    // fs.unlinkSync(req.file.path)
+                    // fs.unlinkSync(outputFilePath)
 
                     res.send('some error has taken in download ')
                 }
-                fs.unlinkSync(req.file.path)
-                fs.unlinkSync(`./uploads/${outputFilePath}`)
+                // fs.unlinkSync(req.file.path)
+                // fs.unlinkSync(`./uploads/${outputFilePath}`)
 
             })
         } )
