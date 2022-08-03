@@ -6,21 +6,6 @@ const allRoutes = require('./Routes/allRoutes');
 
 
 dotenv.config({path : './config.env'});
-// {
-//     "version": 2,
-//     "builds": [
-//     {
-//         "src": "./server.js",
-//         "use": "@vercel/node"
-//     }
-// ],
-//     "routes": [
-//     {
-//         "src": "/(.*)",
-//         "dest": "/"
-//     }
-// ]
-// }
 
 
 // connectionDB();
@@ -49,3 +34,5 @@ app.get('/', (req, res) => res.send('Hello World'))
 
 
 app.listen(port , () => console.log(`Server is running in ${process.env.APP_ENV} mode on port ${port}`) )
+
+module.exports = app
