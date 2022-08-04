@@ -5,12 +5,14 @@ const path = require("path");
 const fs = require("fs");
 const libre = require('libreoffice-convert');
 let toPdf = require("office-to-pdf")
+const {json} = require("express");
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, "./uploads/");
     },
     filename: function (req, file, cb) {
+        console.log({name:file.originalname})
         cb(
             null,
             new Date().toISOString().replace(/:/g, "-") + "-" + file.originalname
@@ -109,14 +111,20 @@ routers.post("/fileUpload",  docxToPDF.single('file') ,(req , res) => {
 
                 res.send('some error has taken in convertion')
             }
-
+            const npth = path.join(__dirname + `/uploads/${outputFilePath}`)
+            console.log({npth})
             try {
                 fs.writeFileSync(`./uploads/${outputFilePath}`, done)
-                console.log({outputFilePath})
+                console.log(done)
+
+                res.status(200).json({
+                    file : done
+                })
 
             }catch(err){
                 console.log(({err}))
             }
+<<<<<<< HEAD
             res.download(`./uploads/${outputFilePath}` , (err , done) => {
                 if(err){
                     console.log({err})
@@ -129,6 +137,20 @@ routers.post("/fileUpload",  docxToPDF.single('file') ,(req , res) => {
                 // fs.unlinkSync(`./uploads/${outputFilePath}`)
 
             })
+=======
+            // res.download(`./${outputFilePath}` , (err , done) => {
+            //     if(err){
+            //         console.log({err})
+            //         // fs.unlinkSync(req.file.path)
+            //         // fs.unlinkSync(outputFilePath)
+            //
+            //         res.send('some error has taken in download ')
+            //     }
+            //     fs.unlinkSync(req.file.path)
+            //     fs.unlinkSync(`./uploads/${outputFilePath}`)
+            //
+            // })
+>>>>>>> 603652cf1aa2f6b7ed1da372f467b0e5e94d444a
         } )
 
     }
