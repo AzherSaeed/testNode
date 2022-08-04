@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
 app.use('/api' , allRoutes);
 app.use('/uploads' , express.static('uploads') )
 
-const port =  process.env.PORT ||  8080;
+const port =  process.env.PORT ||  8081;
 
 app.get('/', (req, res) => res.send('Hello World'))
 
